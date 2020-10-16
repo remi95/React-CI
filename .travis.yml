@@ -1,15 +1,11 @@
-language: node_js
-node_js:
-  - "12"
-sudo: required
-services:
-  - docker
-before_script:
-  - npm install
-script:
-  - npm test
-  - docker build -t front .
-after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  - docker tag front $DOCKER_USER/front
-  - docker push $DOCKER_USER/front
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t front .
+      - docker tag front $DOCKER_USERNAME/front
+      - docker push $DOCKER_USERNAME/front
+    - stage: test
+      script: docker run --rm $DOCKER_USERNAME/front npm run test
+  
