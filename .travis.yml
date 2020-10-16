@@ -2,10 +2,10 @@ jobs:
   include:
     - stage: build docker image
       script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - docker build -t front .
-      - docker tag front $DOCKER_USERNAME/front
-      - docker push $DOCKER_USERNAME/front
+      - docker tag front $DOCKER_USER/front
+      - docker push $DOCKER_USER/front
     - stage: test
-      script: docker run --rm $DOCKER_USERNAME/front npm run test
+      script: docker run --rm $DOCKER_USER/front npm run test
   
