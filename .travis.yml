@@ -1,3 +1,7 @@
+language: node_js
+node_js:
+  - "12"
+
 jobs:
   include:
     - stage: build docker image
@@ -7,5 +11,5 @@ jobs:
       - docker tag front $DOCKER_USER/front
       - docker push $DOCKER_USER/front
     - stage: test
-      script: docker run --rm $DOCKER_USER/front npm run test
-  
+      script: docker run --rm $DOCKER_USER/front node_modules/react-scripts/bin/react-scripts.js test --watchAll=false
+    
