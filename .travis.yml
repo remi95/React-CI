@@ -2,6 +2,12 @@ language: node_js
 node_js:
   - "12"
 
+addons:
+  sonarcloud:
+    organization: 'concerto'
+    token:
+      secure: 'Xj3hZuAhUWOSCGLLH9NCSHOAYDB4iUj7kfvWx6Zh84d9B0ZnbgFTGYB8crjJ0ZMTwB4RPqXvs5X3ww6Nt4ZIRlu7zN/Qq3w72eNObkrXnfZTyJywtxwJsMBn+Rl2ka/cUg7uxhIyWSmXZffm+TZnW+5z2RsPo496+9NGgcsDkahNyVkL28DJ1Bw7HBM+/ztXkYbBxV+97fMrFjn67ZCphNST8o9m/KO9iGV+1J60oHFzaF7LZRfqlgnW9guqveUtX7T3wGlSP6YGNvU/+qsGzflUWL0iJXSykMPbRuYJwrDNEbx/+tLcYWW4cLXmgADA3ei2gI7AzHfnC245PDFui1ftaknHId1wzJtdUjVBbmSlCsEF5T+ZgxDPQHPj1sz+jHX8xQ1Bq8K3qzSkBwK9gFJwMXAPkdN/5La7fW89+CHWiPeLcOFLRB6eQKd1voTWDn260SyrEkwCXmeeY531XZm0RtaRBWl4Iyyj/rylg/CmtAwvtftzCe8VkLGyNnBLnZrNfR+E7MU41EZDjJOYxBWuct/u31xM5CHtauyFyF3sO0I/RK2BBfBolawyR4jrFrevq5g78p0nvD3gtI9GQ3LULx3f/2E5Qgp10LhD+rnxbBE4Vgj119DtumRZpRjQA2akO2ukEwJ2rI5E8VK/a+jDYr7GKG9iJb7p4mvdJss='
+
 jobs:
   include:
     - stage: build docker image
@@ -11,5 +17,7 @@ jobs:
       - docker tag front $DOCKER_USER/front
       - docker push $DOCKER_USER/front
     - stage: test
-      script: docker run --rm $DOCKER_USER/front node_modules/react-scripts/bin/react-scripts.js test --watchAll=false
+      script: 
+        - sonar-scanner
+        - docker run --rm $DOCKER_USER/front node_modules/react-scripts/bin/react-scripts.js test --watchAll=false
     
