@@ -11,7 +11,7 @@ describe('Favor reducer', () => {
 
   it('should handle FETCH_FAVORS', () => {
     expect(favorReducer(initialState, {
-      type: FETCH_FAVORS,
+      type: FETCH_FAVO,
       payload: undefined,
     })).toEqual({
       error: null,
