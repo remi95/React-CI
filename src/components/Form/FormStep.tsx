@@ -50,6 +50,9 @@ const FormStep: React.FC<Props> = (props: Props) => {
     });
 
     return validFields.filter((isValid) => !isValid).length === 0;
+
+
+    console.log('C\'est pas bien')
   };
 
   /**
