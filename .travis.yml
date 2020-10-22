@@ -12,9 +12,9 @@ jobs:
     - stage: build docker image
       script:
       - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - docker build -t front:${TRAVIS_COMMIT} .
-      - docker tag front $DOCKER_USER/front:${TRAVIS_COMMIT}
-      - docker push $DOCKER_USER/front:${TRAVIS_COMMIT}
+      - docker build -t front:TRAVIS_COMMIT .
+      - docker tag front $DOCKER_USER/front:TRAVIS_COMMIT
+      - docker push $DOCKER_USER/front:TRAVIS_COMMIT
     - stage: test
       script: 
         - sonar-scanner
@@ -22,6 +22,6 @@ jobs:
     - stage: tag latest to master
       if: branch = main
       script:
-        - docker pull $DOCKER_USER/front:${TRAVIS_COMMIT}
+        - docker pull $DOCKER_USER/front:TRAVIS_COMMIT
         - docker tag front $DOCKER_USER/front:latest
         - docker push $DOCKER_USER/front:latest
