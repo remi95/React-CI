@@ -18,6 +18,4 @@ jobs:
     - stage: test
       script: 
         - sonar-scanner
-        - docker run --rm $DOCKER_USER/front node_modules/react-scripts/bin/react-scripts.js test --watchAll=false
-    - stage: tag latest to master
-    
+        - docker run --rm $DOCKER_USER/front node_modules/react-scripts/bin/react-scripts.js test --watchAll=false    
