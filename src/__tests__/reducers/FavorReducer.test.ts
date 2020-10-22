@@ -24,7 +24,7 @@ describe('Favor reducer', () => {
 
   it('should handle GET_FAVORS', () => {
     expect(favorReducer(initialState, {
-      type: GET_FAVOR,
+      type: GET_FAVORS,
       payload: getFavorsResponse,
     })).toEqual({
       error: null,
